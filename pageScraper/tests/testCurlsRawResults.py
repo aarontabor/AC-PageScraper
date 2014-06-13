@@ -1,6 +1,7 @@
-from curlsRawResults import CurlsRawResults
+from django.test import TestCase
+from pageScraper.lib.curlsRawResults import CurlsRawResults
 
-class TestCurlsRawResults:
+class TestCurlsRawResults(TestCase):
     def test_plumbing(self):
         subject = CurlsRawResults()
         result = subject.curl('http://www.google.com')
