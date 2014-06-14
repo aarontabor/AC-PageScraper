@@ -1,12 +1,12 @@
-import pytest
-from mapsPropertiesToObjects import MapsPropertiesToObjects, InvalidAttributeError
+from django.test import TestCase
+from pageScraper.lib.mapsPropertiesToObjects import MapsPropertiesToObjects, InvalidAttributeError
 
 class Runner(object):
     def __init__(self, name, age):
         self.name = name
         self.age = age
 
-class TestMapsPropertiesToObjects:
+class TestMapsPropertiesToObjects(TestCase):
     def test_it_assigns_attributes(self):
         subject = MapsPropertiesToObjects()
         runner = Runner('Jim', 50)
@@ -17,5 +17,5 @@ class TestMapsPropertiesToObjects:
     def test_it_wont_create_new_attributes(self):
         subject = MapsPropertiesToObjects()
         runner = Runner('Jim', 50)
-        with pytest.raises(InvalidAttributeError):
+        with self.assertRaises(InvalidAttributeError):
             subject.map({'fakeAttr':'boogity'}, runner)
