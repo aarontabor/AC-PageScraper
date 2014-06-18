@@ -1,6 +1,7 @@
 from re import findall
 from handlesBreakPoints import HandlesBreakPoints
 
+
 uniqueHeaderIdentifier = 'Place'
 
 class ExtractsContentFromRawResults(object):
