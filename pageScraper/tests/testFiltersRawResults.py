@@ -16,8 +16,12 @@ class TestFiltersRawResults(TestCase):
 
   def test_preserves_content_in_pre_tags(self):
     result = self.subject.filter(self.sourceHtmlList)
-    assert 'inside pre tag' in result
+    assert u'inside pre tag' in result
+    for line in result:
+      assert isinstance(line, unicode)
 
   def test_filters_content_outside_pre_tags(self):
     result = self.subject.filter(self.sourceHtmlList)
-    assert 'outside pre tag' not in result
+    assert u'outside pre tag' not in result
+    for line in result:
+      assert isinstance(line, unicode)

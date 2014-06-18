@@ -13,9 +13,9 @@ class HandlesBreakPoints(object):
     count = 0
     inField = False
     for char in lineChars:
-      if char is '=':
+      if char ==  u'=':
         inField = True
-      if inField and char is ' ':
+      if inField and char == u' ':
         breaks.append(count)
         inField = False
       count += 1
@@ -29,15 +29,15 @@ class HandlesBreakPoints(object):
     return bannerLines[1]
 
   def splitOnBreakPoints(self, line, breakPoints):
-    delimieter='@'
+    delimieter=u'@'
     lineChars = list(line)
     for breakPoint in breakPoints:
       point = breakPoint
       if len(lineChars) > point:
-        while lineChars[point] is not ' ':
+        while lineChars[point] != u' ':
           point -= 1
         lineChars[point] = delimieter
-    theLine = ''.join(lineChars)
+    theLine = u''.join(lineChars)
     fields = theLine.split(delimieter)
     fields = [ field.strip() for field in fields ]
     return fields

@@ -6,7 +6,7 @@ class FiltersRawResults(object):
       if '</pre' in line:
         inPre = False
       if inPre:
-        filteredLines.append(line)
+        filteredLines.append(unicode(line, errors='replace'))
       if '<pre' in line:
         inPre = True
     return filteredLines
