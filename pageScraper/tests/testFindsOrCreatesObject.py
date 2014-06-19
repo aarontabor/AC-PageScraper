@@ -7,17 +7,16 @@ class TestFindsOrCreatesObject(TestCase):
   def setUp(self):
     self.subject = FindsOrCreatesObject(Runner)
     self.the_saved = Runner()
-    self.the_saved.firstName = 'Tim'
-    self.the_saved.lastName = 'Test'
+    self.the_saved.name = 'Tim'
     self.the_saved.save()
 
   def test_it_retrives_a_matching_object(self):
-    attributesDict = {'firstName': 'Tim', 'lastName': 'Test'}
+    attributesDict = {'name': 'Tim'}
     the_returned = self.subject.findOrCreate(attributesDict)
     self.assertEqual(self.the_saved, the_returned)
 
-  def test_it_creates_new_when_no__match_exists(self):
-    attributesDict = {'firstName': 'John', 'lastName': 'Fake'}
+  def test_it_creates_new_when_no_match_exists(self):
+    attributesDict = {'name': 'John'}
     the_returned = self.subject.findOrCreate(attributesDict)
     self.assertNotEqual(self.the_saved, the_returned)
-    self.assertEqual(the_returned.firstName, 'John')
+    self.assertEqual(the_returned.name, 'John')

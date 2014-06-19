@@ -7,10 +7,10 @@ class TestBuildsObjectsFromResultList(TestCase):
   def setUp(self):
     self.subject = BuildsObjectsFromResultList(Runner)
     self.resultsList = [
-      ['Test', 'foo', 'Tim'],
-      ['Fake', 'bar', 'John'],
+      ['foo', 'Tim'],
+      ['bar', 'John'],
     ]
-    self.attributeMapping = {'firstName':2, 'lastName':0}
+    self.attributeMapping = {'name': 1}
     
   def test_it_builds_an_object_for_each_result(self):
     runners = self.subject.build(self.resultsList, self.attributeMapping) 
@@ -21,13 +21,11 @@ class TestBuildsObjectsFromResultList(TestCase):
     runners = self.subject.build(self.resultsList, self.attributeMapping)
     firstRunner = runners[0]
 
-    self.assertEqual(firstRunner.firstName, 'Tim')
-    self.assertEqual(firstRunner.lastName, 'Test')
+    self.assertEqual(firstRunner.name, 'Tim')
 
   def test_it_doesnt_map_non_attributes(self):
     runners = self.subject.build(self.resultsList, self.attributeMapping)
     firstRunner = runners[0]
 
-    self.assertNotEqual(firstRunner.firstName, 'foo')
-    self.assertNotEqual(firstRunner.lastName, 'foo')
+    self.assertNotEqual(firstRunner.name, 'foo')
 
