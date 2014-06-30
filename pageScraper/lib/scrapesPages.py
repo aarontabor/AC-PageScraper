@@ -1,6 +1,7 @@
 from curlsRawResults import CurlsRawResults
 from extractsContentFromRawResults import ExtractsContentFromRawResults
 from handlesBreakPoints import HandlesBreakPoints
+from extractsContentFromRawHeaders import ExtractsContentFromRawHeaders
 
 
 '''
@@ -20,3 +21,18 @@ class ScrapesPages(object):
 
   def scrapeResults(self):
     return ExtractsContentFromRawResults(self.rawResultLines, self.breakPoints).extractResults()
+
+  def scrapeRaceName(self):
+    return ExtractsContentFromRawHeaders(self.rawResultLines).extractRaceName()
+
+  def scrapeEventName(self):
+    return ExtractsContentFromRawHeaders(self.rawResultLines).extractEventName()
+
+  def scrapeLocation(self):
+    return ExtractsContentFromRawHeaders(self.rawResultLines).extractLocation()
+
+  def scrapeDate(self):
+    return ExtractsContentFromRawHeaders(self.rawResultLines).extractDate()
+
+  def scrapeRaceDirector(self):
+    return ExtractsContentFromRawHeaders(self.rawResultLines).extractRaceDirector()
