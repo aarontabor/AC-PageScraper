@@ -2,7 +2,7 @@ from django.test import TestCase
 from pageScraper.lib.extractsContentFromRawResults import ExtractsContentFromRawResults
 
 
-class TestExtractsContentFromRawResults:
+class TestExtractsContentFromRawResults(TestCase):
   def setUp(self):
     self.rawResultsLines = [
       'Place Bib    Name     ', 
