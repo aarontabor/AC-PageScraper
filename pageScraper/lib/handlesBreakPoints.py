@@ -1,6 +1,8 @@
 from re import findall
 
 
+bannerSymbols = ['=', '-']
+
 class HandlesBreakPoints(object):
   def computeBreakPoints(self, rawResults):
     breakLine = self.findBreakLine(rawResults)
@@ -13,7 +15,7 @@ class HandlesBreakPoints(object):
     count = 0
     inField = False
     for char in lineChars:
-      if char ==  u'=':
+      if char in bannerSymbols:
         inField = True
       if inField and char == u' ':
         breaks.append(count)
@@ -24,7 +26,7 @@ class HandlesBreakPoints(object):
   def findBreakLine(self, rawResultsLines):
     bannerLines = []
     for line in rawResultsLines:
-      if findall(r'^\s*=', line):
+      if findall(r'^\s*[%s]' % ''.join(bannerSymbols), line):
         bannerLines.append(line)
     return bannerLines[1]
 

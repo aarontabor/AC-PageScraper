@@ -6,7 +6,7 @@ class TestHandlesBreakPoints(TestCase):
   def setUp(self):
     self.subject = HandlesBreakPoints()
 
-  def test_it_picks_the_right_line(self):
+  def test_it_picks_the_right_line_when_equal_sign(self):
     rawResultsLines = [
       u'=================',
       u'Place Bib Name   ',
@@ -15,11 +15,20 @@ class TestHandlesBreakPoints(TestCase):
     breakLine = self.subject.findBreakLine(rawResultsLines)
     assert breakLine == u'===== === ======='
 
+  def test_it_picks_The_right_line_when_dashes(self):
+    rawResultsLines = [
+      u'-----------------',
+      u'Place Bib Name   ',
+      u'----- --- -------',
+    ]
+    breakLine = self.subject.findBreakLine(rawResultsLines)
+    assert breakLine == u'----- --- -------'
+
   def test_it_computes_the_correct_breakpoints(self):
     breakPointLine = u'===== == == '
     breakPoints = self.subject.computeBreakPointsFromLine(breakPointLine)
     assert breakPoints == [5, 8, 11]
-    breakPointLine = u'===== == =='
+    breakPointLine = u'----- -- --'
     breakPoints = self.subject.computeBreakPointsFromLine(breakPointLine)
     assert breakPoints == [5, 8]
 
