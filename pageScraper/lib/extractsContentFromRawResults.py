@@ -24,7 +24,7 @@ class ExtractsContentFromRawResults(object):
     handlesBreakPoints = HandlesBreakPoints()
     for line in resultLines:
       results.append(handlesBreakPoints.splitOnBreakPoints(line, self.breakPoints))
-    return results[:-1] # the last one happens to be lmt 
+    return results
 
 
   def findResultLines(self):
@@ -32,5 +32,5 @@ class ExtractsContentFromRawResults(object):
     for line in self.rawResultLines:
       if findall(r'^\s*\d+', line):
         resultLines.append(line)
-    return resultLines
+    return resultLines[:-1] # the last one is lmt
 
