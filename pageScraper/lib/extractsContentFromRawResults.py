@@ -17,6 +17,7 @@ class ExtractsContentFromRawResults(object):
     for line in self.rawResultLines:
       if uniqueHeaderIdentifier in line:
         return line
+    raise HeaderNotFoundError
 
   def extractResults(self):
     resultLines = self.findResultLines()
@@ -32,5 +33,12 @@ class ExtractsContentFromRawResults(object):
     for line in self.rawResultLines:
       if findall(r'^\s*\d+', line):
         resultLines.append(line)
+    if resultLines == []:
+      raise ResultsNotFoundError
     return resultLines[:-1] # the last one is lmt
 
+class HeaderNotFoundError(Exception):
+  pass
+
+class ResultsNotFoundError(Exception):
+  pass
