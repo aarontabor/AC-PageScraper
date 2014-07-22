@@ -1,13 +1,13 @@
+from pageScraper import views
 from django.conf.urls import patterns, include, url
 
-from django.contrib import admin
-admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'atlanticChipPageScraper.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^page_scraper/', include('pageScraper.urls', namespace='pageScraper')),
+    url(r'^specify', views.specify, name='specify'),
+    url(r'^map_headers', views.mapHeaders, name='map_headers'),
+    url(r'^confirm', views.confirm, name='confirm'),
 )
