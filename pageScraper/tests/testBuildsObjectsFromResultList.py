@@ -1,11 +1,12 @@
 from django.test import TestCase
 from pageScraper.models import Runner
 from pageScraper.lib.buildsObjectsFromResultList import BuildsObjectsFromResultList
+from pageScraper.lib.findsOrCreatesObject import FindsOrCreatesObject
 
 
 class TestBuildsObjectsFromResultList(TestCase):
   def setUp(self):
-    self.subject = BuildsObjectsFromResultList(Runner)
+    self.subject = BuildsObjectsFromResultList(FindsOrCreatesObject(Runner))
     self.resultsList = [
       ['foo', 'Tim'],
       ['bar', 'John'],

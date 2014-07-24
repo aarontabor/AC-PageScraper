@@ -2,8 +2,8 @@ from pageScraper.lib.findsOrCreatesObject import FindsOrCreatesObject
 
 
 class BuildsObjectsFromResultList(object):
-  def __init__(self, the_class):
-    self.the_class = the_class
+  def __init__(self, finder):
+    self.finder = finder
 
   def build(self, resultList, attributeMapping):
     objects = []
@@ -16,5 +16,5 @@ class BuildsObjectsFromResultList(object):
     for attribute in attributeMapping:
       resultIndex = attributeMapping.get(attribute)
       attributes[attribute] = result[resultIndex]
-    return FindsOrCreatesObject(self.the_class).findOrCreate(attributes)
+    return self.finder.findOrCreate(attributes)
       
