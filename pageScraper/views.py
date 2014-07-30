@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from pageScraper.forms.specifyForm import SpecifyForm
 from pageScraper.forms.raceForm import RaceForm
+from pageScraper.forms.eventForm import EventForm
 from pageScraper.lib.scrapesPages import ScrapesPages
 from pageScraper.lib.findsOrCreatesObject import FindsOrCreatesObject
-from pageScraper.models import Race
+from pageScraper.models import Race, Event
 
 
 # Create your views here.
@@ -64,6 +65,35 @@ def mapRace(request):
     return render(request, 'mapRace.html', {
       'form': form,
     })
+
+def mapEvent(request):
+  if request.method == 'POST':
+    form = EventForm(request.POST)
+    if form.is_valid():
+      name = form.cleaned_data['name']
+      race = Race.objects.get(pk=request.session['race_id'])
+
+      event = FindsOrCreatesObject(Event).findOrCreate({
+        'name': name,
+        'race': race,
+      })
+      event.save()
+      request.session['event_id'] = event.id
+
+      return redirect(reverse('pageScraper:confirm'))
+    else:
+      return render(request, 'mapEvent.html', {
+        'form': form,
+      })
+  else:
+    form = EventForm(initial={
+      'name': request.session.get('eventName'),
+      'race': request.session.get('race'),
+    })
+    return render(request, 'mapEvent.html', {
+      'form': form,
+    })
+
 def mapHeaders(request):
   return render(request, 'mapHeaders.html')
 
