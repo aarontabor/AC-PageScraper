@@ -24,14 +24,16 @@ def specify(request):
       request.session['raceDirector'] = scraper.scrapeRaceDirector()
       return redirect(reverse('pageScraper:confirm'))
     else:
-      return render(request, 'specify.html', {
-        'form': form
-      })
+      return renderSpecify(request, form)
   else:
     form = SpecifyForm()
-    return render(request, 'specify.html', {
-      'form': form,
-    })
+    return renderSpecify(request, form)
+
+def renderSpecify(request, form):
+  return render(request, 'specify.html', {
+    'form': form,
+  })
+
 
 def mapRace(request):
   if request.method == 'POST':
@@ -52,9 +54,7 @@ def mapRace(request):
       request.session['race_id'] = race.id
       return redirect(reverse('pageScraper:confirm'))
     else:
-      return render(request, 'mapRace.html', {
-        'form': form,
-      })
+      return renderMapEvent(request,form)
   else:
     form = RaceForm(initial={
       'name': request.session.get('name'),
@@ -62,9 +62,12 @@ def mapRace(request):
       'raceDirector': request.session.get('raceDirector'),
       'date': request.session.get('date'),
     })
-    return render(request, 'mapRace.html', {
-      'form': form,
-    })
+    return renderMapEvent(request,form)
+
+def renderMapEvent(request, form):
+  return render(request, 'mapRace.html', {
+    'form': form,
+  })
 
 def mapEvent(request):
   if request.method == 'POST':
@@ -82,14 +85,15 @@ def mapEvent(request):
 
       return redirect(reverse('pageScraper:confirm'))
     else:
-      return render(request, 'mapEvent.html', {
-        'form': form,
-      })
+      return renderMapEvent(request, form)
   else:
     form = EventForm(initial={
       'name': request.session.get('eventName'),
       'race': request.session.get('race'),
     })
+    return renderMapEvent(request, form)
+
+def renderMapEvent(request, form):
     return render(request, 'mapEvent.html', {
       'form': form,
     })
