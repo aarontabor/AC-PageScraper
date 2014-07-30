@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^specify', views.specify, name='specify'),
+    url(r'^map_race', views.mapRace, name='map_race'),
     url(r'^map_headers', views.mapHeaders, name='map_headers'),
     url(r'^confirm', views.confirm, name='confirm'),
 )
