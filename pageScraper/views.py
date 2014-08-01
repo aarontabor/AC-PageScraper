@@ -27,7 +27,7 @@ def specify(request):
       request.session['location'] = scraper.scrapeLocation()
       request.session['date'] = scraper.scrapeDate()
       request.session['raceDirector'] = scraper.scrapeRaceDirector()
-      return redirect(reverse('pageScraper:confirm'))
+      return redirect(reverse('pageScraper:map_race'))
     else:
       return renderSpecify(request, form)
   else:
@@ -57,7 +57,7 @@ def mapRace(request):
       })
       race.save()
       request.session['race_id'] = race.id
-      return redirect(reverse('pageScraper:confirm'))
+      return redirect(reverse('pageScraper:map_event'))
     else:
       return renderMapRace(request,form)
   else:
@@ -88,7 +88,7 @@ def mapEvent(request):
       event.save()
       request.session['event_id'] = event.id
 
-      return redirect(reverse('pageScraper:confirm'))
+      return redirect(reverse('pageScraper:map_runners'))
     else:
       return renderMapEvent(request, form)
   else:
@@ -116,7 +116,7 @@ def mapRunners(request):
         runner.save()
         runner_ids.append(runner.id)
       request.session['runner_ids'] = runner_ids
-      return redirect(reverse('pageScraper:confirm'))
+      return redirect(reverse('pageScraper:map_results'))
     else:
       return renderMapRunners(request, form)
   else:
