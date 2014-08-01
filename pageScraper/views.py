@@ -4,10 +4,13 @@ from pageScraper.forms.specifyForm import SpecifyForm
 from pageScraper.forms.raceForm import RaceForm
 from pageScraper.forms.eventForm import EventForm
 from pageScraper.forms.runnerForm import RunnerForm
+from pageScraper.forms.resultForm import ResultForm
 from pageScraper.lib.scrapesPages import ScrapesPages
 from pageScraper.lib.findsOrCreatesObject import FindsOrCreatesObject
+from pageScraper.lib.findsOrCreatesResult import FindsOrCreatesResult
 from pageScraper.lib.buildsObjectsFromResultList import BuildsObjectsFromResultList
-from pageScraper.models import Race, Event, Runner
+from pageScraper.models import Race, Event, Runner, Result
+import copy
 
 
 # Create your views here.
@@ -132,6 +135,47 @@ def renderMapRunners(request, form):
     'form': form,
     'headers': request.session.get('headers')
   })
+
+def mapResults(request):
+  if request.method == 'POST':
+    form = ResultForm(request.POST)
+    if form.is_valid():
+      populatedFields = filterPopulatedData(form.cleaned_data)
+      augmentedResults = copy.deepcopy(request.session.get('results'))
+
+      runner_ids = request.session.get('runner_ids')
+      populatedFields['runner'] = len(augmentedResults[0])
+      for index, result in enumerate(augmentedResults):
+        result.append(Runner.objects.get(pk=runner_ids[index]))
+
+      event_id = request.session.get('event_id')
+      event = Event.objects.get(pk=event_id)
+      populatedFields['event'] = len(augmentedResults[0])
+      for result in augmentedResults:
+        result.append(event)
+
+      resultObjects = BuildsObjectsFromResultList(FindsOrCreatesResult()).build(
+          augmentedResults,
+          populatedFields)
+
+      result_ids = []
+      for result in resultObjects:
+        result.save()
+        result_ids.append(result.id)
+
+      request.session['result_ids'] = result_ids
+      return redirect(reverse('pageScraper:confirm'))
+    else:
+      return renderResultForm(request, form)
+  else:
+    form = ResultForm()
+    return renderResultForm(request, form)
+
+def renderResultForm(request, form):
+  return render(request, 'mapResult.html', {
+      'form': form,
+      'headers': request.session.get('headers'),
+    })
 
 def mapHeaders(request):
   return render(request, 'mapHeaders.html')
