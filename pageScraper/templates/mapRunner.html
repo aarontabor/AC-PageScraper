@@ -1,0 +1,20 @@
+<html>
+  <form action="" method="post">{% csrf_token %}
+    {% for field in form %}
+      <div>
+        {{ field.errors }}
+        <span>
+          {{ field.label_tag }}
+          <select name="id_{{ field.label|lower }}">
+            <option value="">Choose...</option>
+            {% for h in headers %}
+              <option value="{{ forloop.counter0 }}">{{h}}</option>
+            {% endfor %}
+          </select>
+        </span>
+      <div>
+    {% endfor %}
+
+    <input type="submit" value="Submit" />
+  </form>
+</html>

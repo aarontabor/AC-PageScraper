@@ -3,9 +3,11 @@ from django.core.urlresolvers import reverse
 from pageScraper.forms.specifyForm import SpecifyForm
 from pageScraper.forms.raceForm import RaceForm
 from pageScraper.forms.eventForm import EventForm
+from pageScraper.forms.runnerForm import RunnerForm
 from pageScraper.lib.scrapesPages import ScrapesPages
 from pageScraper.lib.findsOrCreatesObject import FindsOrCreatesObject
-from pageScraper.models import Race, Event
+from pageScraper.lib.buildsObjectsFromResultList import BuildsObjectsFromResultList
+from pageScraper.models import Race, Event, Runner
 
 
 # Create your views here.
@@ -97,6 +99,39 @@ def renderMapEvent(request, form):
     return render(request, 'mapEvent.html', {
       'form': form,
     })
+
+def mapRunners(request):
+  if request.method == 'POST':
+    form = RunnerForm(request.POST)
+    if form.is_valid():
+      populatedFields = filterPopulatedData(form.cleaned_data)
+      runners = BuildsObjectsFromResultList(FindsOrCreatesObject(Runner)).build(
+          request.session.get('results'), 
+          populatedFields)
+      runner_ids = []
+      for runner in runners:
+        runner.save()
+        runner_ids.append(runner.id)
+      request.session['runner_ids'] = runner_ids
+      return redirect(reverse('pageScraper:confirm'))
+    else:
+      return renderMapRunners(request, form)
+  else:
+    form = RunnerForm()
+    return renderMapRunners(request, form)
+
+def filterPopulatedData(allData):
+  populatedTuples = filter(
+      lambda (x,y) : y is not None,
+      allData.items())
+  return dict(populatedTuples)
+
+def renderMapRunners(request, form):
+  form = RunnerForm()
+  return render(request, 'mapRunner.html', {
+    'form': form,
+    'headers': request.session.get('headers')
+  })
 
 def mapHeaders(request):
   return render(request, 'mapHeaders.html')
