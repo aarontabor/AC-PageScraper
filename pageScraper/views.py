@@ -59,7 +59,7 @@ def mapRace(request):
       request.session['race_id'] = race.id
       return redirect(reverse('pageScraper:confirm'))
     else:
-      return renderMapEvent(request,form)
+      return renderMapRace(request,form)
   else:
     form = RaceForm(initial={
       'name': request.session.get('name'),
@@ -67,9 +67,9 @@ def mapRace(request):
       'raceDirector': request.session.get('raceDirector'),
       'date': request.session.get('date'),
     })
-    return renderMapEvent(request,form)
+    return renderMapRace(request,form)
 
-def renderMapEvent(request, form):
+def renderMapRace(request, form):
   return render(request, 'mapRace.html', {
     'form': form,
   })
