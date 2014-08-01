@@ -131,7 +131,7 @@ def filterPopulatedData(allData):
 
 def renderMapRunners(request, form):
   form = RunnerForm()
-  return render(request, 'mapRunner.html', {
+  return render(request, 'mapChoices.html', {
     'form': form,
     'headers': request.session.get('headers')
   })
@@ -172,7 +172,7 @@ def mapResults(request):
     return renderResultForm(request, form)
 
 def renderResultForm(request, form):
-  return render(request, 'mapResult.html', {
+  return render(request, 'mapChoices.html', {
       'form': form,
       'headers': request.session.get('headers'),
     })
