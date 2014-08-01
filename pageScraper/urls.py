@@ -12,6 +12,5 @@ urlpatterns = patterns('',
     url(r'^map_event', views.mapEvent, name='map_event'),
     url(r'^map_runners', views.mapRunners, name='map_runners'),
     url(r'^map_results', views.mapResults, name='map_results'),
-    url(r'^map_headers', views.mapHeaders, name='map_headers'),
     url(r'^confirm', views.confirm, name='confirm'),
 )

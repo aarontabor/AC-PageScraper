@@ -177,8 +177,5 @@ def renderResultForm(request, form):
       'headers': request.session.get('headers'),
     })
 
-def mapHeaders(request):
-  return render(request, 'mapHeaders.html')
-
 def confirm(request):
   return render(request, 'confirm.html')
