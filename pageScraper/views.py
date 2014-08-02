@@ -8,6 +8,7 @@ from pageScraper.forms.resultForm import ResultForm
 from pageScraper.lib.scrapesPages import ScrapesPages
 from pageScraper.lib.findsOrCreatesObject import FindsOrCreatesObject
 from pageScraper.lib.findsOrCreatesResult import FindsOrCreatesResult
+from pageScraper.lib.findsOrCreatesRace import FindsOrCreatesRace
 from pageScraper.lib.buildsObjectsFromResultList import BuildsObjectsFromResultList
 from pageScraper.models import Race, Event, Runner, Result
 import copy
@@ -49,7 +50,7 @@ def mapRace(request):
       raceDirector = form.cleaned_data['raceDirector']
       date = form.cleaned_data['date']
 
-      race = FindsOrCreatesObject(Race).findOrCreate({
+      race = FindsOrCreatesRace().findOrCreate({
         'name': name,
         'location': location,
         'raceDirector': raceDirector,
