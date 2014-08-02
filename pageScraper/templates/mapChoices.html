@@ -10,20 +10,22 @@ The raw results have been attached at the bottom of this page to help you choose
 
 {% block content %}
   <form action="" method="post">{% csrf_token %}
+    <ul>
     {% for field in form %}
-      <div>
-        {{ field.errors }}
-        <span>
-          {{ field.label_tag }}
-          <select name="{{ field.name }}">
-            <option value="">Choose...</option>
-            {% for h in headers %}
-              <option value="{{ forloop.counter0 }}">{{h}}</option>
-            {% endfor %}
-          </select>
-        </span>
-      <div>
+        <li>
+          {{ field.errors }}
+          <span>
+            {{ field.label_tag }}
+            <select name="{{ field.name }}">
+              <option value="">Choose...</option>
+              {% for h in headers %}
+                <option value="{{ forloop.counter0 }}">{{h}}</option>
+              {% endfor %}
+            </select>
+          </span>
+        </li>
     {% endfor %}
+    </ul>
 
     <input type="submit" value="Submit" />
   </form>

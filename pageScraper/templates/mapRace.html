@@ -10,7 +10,7 @@ Some fields may be pre-populated based on the raw results (displayed below), Fee
 
 {% block content %}
   <form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form.as_ul }}
       <input type="submit" value="Submit" />
     </form>
 {% endblock %}
