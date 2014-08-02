@@ -69,13 +69,12 @@ def mapEvent(request):
   if request.method == 'POST':
     form = EventForm(request.POST)
     if form.is_valid():
-      name = form.cleaned_data['name']
-      race = Race.objects.get(pk=request.session['race_id'])
+      toSubmit = form.cleaned_data
 
-      event = FindsOrCreatesObject(Event).findOrCreate({
-        'name': name,
-        'race': race,
-      })
+      race = Race.objects.get(pk=request.session['race_id'])
+      toSubmit['race'] = race
+
+      event = FindsOrCreatesObject(Event).findOrCreate(toSubmit)
       event.save()
       request.session['event_id'] = event.id
 
