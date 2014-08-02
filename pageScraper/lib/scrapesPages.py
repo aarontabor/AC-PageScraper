@@ -36,3 +36,6 @@ class ScrapesPages(object):
 
   def scrapeRaceDirector(self):
     return ExtractsContentFromRawHeaders(self.rawResultLines).extractRaceDirector()
+
+  def rawResultText(self):
+    return ''.join(self.rawResultLines)

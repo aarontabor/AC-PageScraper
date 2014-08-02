@@ -28,9 +28,9 @@
     </div>
 
     <div class='rawResults'>
-      {% block referenceResults %}
-        <p>Raw Results go here for reference</p>
-      {% endblock %}
+      <pre>
+      {% block referenceResults %}{{request.session.rawResults}}{% endblock %}
+      </pre>
     </div>
   </body>
 </html>

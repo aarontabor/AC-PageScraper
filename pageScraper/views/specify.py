@@ -19,6 +19,7 @@ def specify(request):
       request.session['location'] = scraper.scrapeLocation()
       request.session['date'] = scraper.scrapeDate()
       request.session['raceDirector'] = scraper.scrapeRaceDirector()
+      request.session['rawResults'] = scraper.rawResultText()
       return redirect(reverse('pageScraper:map_race'))
     else:
       return renderSpecify(request, form)
