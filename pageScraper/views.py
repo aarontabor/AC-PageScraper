@@ -84,7 +84,6 @@ def mapEvent(request):
   else:
     form = EventForm(initial={
       'name': request.session.get('eventName'),
-      'race': request.session.get('race'),
     })
     return renderMapEvent(request, form)
 
