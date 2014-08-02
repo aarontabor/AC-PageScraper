@@ -38,7 +38,8 @@ def renderMapRunners(request, form):
   form = RunnerForm()
   return render(request, 'mapChoices.html', {
     'form': form,
-    'headers': request.session.get('headers')
+    'headers': request.session.get('headers'),
+    'title': 'Map Runner Data',
   })
 
 

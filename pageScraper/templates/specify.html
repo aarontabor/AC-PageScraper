@@ -1,6 +1,13 @@
-<html>
+{% extends "base.html" %}
+
+{% block pageTitle %}Specify Results Url{% endblock %}
+
+{% block description %}
+Enter the url of the AtlanticChip results page that you would like to scrape.
+{% endblock %}
+{% block content %}
   <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit" />
   </form>
-</html>
+{% endblock %}

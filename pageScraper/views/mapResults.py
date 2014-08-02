@@ -55,6 +55,7 @@ def renderResultForm(request, form):
   return render(request, 'mapChoices.html', {
       'form': form,
       'headers': request.session.get('headers'),
+      'title': 'Map Result Data',
     })
 
 

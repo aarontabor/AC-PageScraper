@@ -1,0 +1,38 @@
+{% with pageTitle='AtlanticChip Results Scraper' %}
+
+<style type="text/css">
+  .rawResults {
+    border-style: solid;
+    border-width: thin;
+  }
+</style>
+
+<html>
+  <head>
+  <title>{{ pageTitle }}</title>
+  </head>
+  <body>
+    <div>
+      <h1>{{ pageTitle }}</h1>
+      <h2> {% block pageTitle %}Generic Page{% endblock %} </h2>
+
+      <p> 
+        {% block description %}This is the default description{% endblock %}
+      </p>
+    </div>
+
+    <div> 
+      {% block content %}
+        <p>This is where the content goes</p>
+      {% endblock %}
+    </div>
+
+    <div class='rawResults'>
+      {% block referenceResults %}
+        <p>Raw Results go here for reference</p>
+      {% endblock %}
+    </div>
+  </body>
+</html>
+
+{% endwith %}

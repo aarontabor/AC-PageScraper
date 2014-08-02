@@ -1,4 +1,14 @@
-<html>
+{% extends "base.html" %}
+
+{% block pageTitle %}{{ title }}{% endblock %}
+
+{% block description %}
+Select the column which corresponds to each of the following fields.  A record will be created for each row of the raw results, mapping each field to the value in the specified column. Some fields may be pre-populated for you.<br>
+
+The raw results have been attached at the bottom of this page to help you choose the correct mappings.
+{% endblock %}
+
+{% block content %}
   <form action="" method="post">{% csrf_token %}
     {% for field in form %}
       <div>
@@ -17,4 +27,4 @@
 
     <input type="submit" value="Submit" />
   </form>
-</html>
+{% endblock %}

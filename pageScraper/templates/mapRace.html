@@ -1,6 +1,16 @@
-<html>
+{% extends "base.html" %}
+
+{% block pageTitle %}Map Race Data{% endblock %}
+
+{% block description %}
+Enter the data corresponding to the <b>race</b> in question.<br>
+
+Some fields may be pre-populated based on the raw results (displayed below), Feel free to adjust them as you like.
+{% endblock %}
+
+{% block content %}
   <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
       <input type="submit" value="Submit" />
     </form>
-</html>
+{% endblock %}
