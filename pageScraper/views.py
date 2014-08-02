@@ -45,17 +45,7 @@ def mapRace(request):
   if request.method == 'POST':
     form = RaceForm(request.POST)
     if form.is_valid():
-      name = form.cleaned_data['name']
-      location = form.cleaned_data['location']
-      raceDirector = form.cleaned_data['raceDirector']
-      date = form.cleaned_data['date']
-
-      race = FindsOrCreatesRace().findOrCreate({
-        'name': name,
-        'location': location,
-        'raceDirector': raceDirector,
-        'date': date,
-      })
+      race = FindsOrCreatesRace().findOrCreate(form.cleaned_data)
       race.save()
       request.session['race_id'] = race.id
       return redirect(reverse('pageScraper:map_event'))
